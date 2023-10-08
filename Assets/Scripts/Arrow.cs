@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using TMPro;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
     public bool canBePressed;
     [SerializeField] private KeyCode _keyToPress;
-    private float _movSpeed;
 
     private void Start()
     {
         canBePressed= false;
-        _movSpeed = GameManager.Instance.arrowSpeed;
     }
 
     private void Update()
@@ -22,13 +21,15 @@ public class Arrow : MonoBehaviour
             if (canBePressed)
             {
                 Destroy(gameObject);
+                GameManager.Instance.score++;
+                GameManager.Instance.scoreText.GetComponent<TMP_Text>().text = GameManager.Instance.score.ToString();
             }
         }
         if (transform.position.y < -10)
         {
             Destroy(gameObject);
         }
-        transform.position = transform.position + new Vector3(0, -(_movSpeed * Time.deltaTime), 0);
+        transform.position -= new Vector3(0, (GameManager.Instance.arrowMovSpeed * Time.deltaTime), 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
