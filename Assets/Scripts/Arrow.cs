@@ -6,22 +6,26 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    public bool canBePressed;
+    [SerializeField] private bool _canBePressed;
+    [SerializeField] private int _scoreValue;
+    [SerializeField] private int _triggerCount;
     [SerializeField] private KeyCode _keyToPress;
 
     private void Start()
     {
-        canBePressed= false;
+        _canBePressed= false;
+        _scoreValue= 0;
+        _triggerCount= 0;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(_keyToPress))
         {
-            if (canBePressed)
+            if (_canBePressed)
             {
                 Destroy(gameObject);
-                GameManager.Instance.score++;
+                GameManager.Instance.score+= _scoreValue;
                 GameManager.Instance.scoreText.GetComponent<TMP_Text>().text = GameManager.Instance.score.ToString();
             }
         }
@@ -34,15 +38,32 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        TogglePressing(true);
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        TogglePressing(false);
+        TogglePressing();   
+        UpdateScoreValue();
+        _triggerCount++;
     }
 
-    public void TogglePressing(bool toggle)
+    private void TogglePressing()
     {
-        canBePressed = toggle;
+        if (_triggerCount == 0)
+        {
+            _canBePressed = true;
+        }
+        else if (_triggerCount == 5)
+        {
+            _canBePressed = false;
+        }
+    }
+
+    private void UpdateScoreValue()
+    {
+        if (_triggerCount < 3)
+        {
+            _scoreValue++;
+        }
+        else
+        {
+            _scoreValue--;
+        }
     }
 }

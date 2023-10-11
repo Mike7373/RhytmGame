@@ -111,7 +111,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.32, y: 0.01}
   m_EdgeRadius: 0
 --- !u!114 &8209015951699189180
 MonoBehaviour:
@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBePressed: 0
+  scoreValue: 0
+  triggerCount: 0
   _keyToPress: 274
 --- !u!50 &-8453737106020358882
 Rigidbody2D:

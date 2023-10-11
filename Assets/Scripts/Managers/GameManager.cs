@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if(GameManager.Instance == null)
+        if(Instance == null)
         {
-            GameManager.Instance = this;
+            Instance = this;
         }
         else
         {
